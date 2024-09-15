@@ -1,0 +1,42 @@
+<div class="container home-container">
+    <div class="title-container">
+        <a href="/idea/yours" class="anchor-button">Go to Yours</a>
+        <h2 class="title border-right-detail">Ideas</h2>
+    </div>
+    <div class="search-container">
+        <form action="/idea" method="GET">
+            <div class="form-control">
+                <input type="text" name="search" id="search" placeholder="Search ideas" value="{{search}}">
+            </div>
+            <button class="button button-submit" type="submit">Search</button>
+        </form>
+    </div>
+    {{#each ideasList}}
+        <div class="idea-tile-container">
+            <div class="main-idea-tile-content">
+                <div class="idea-info">
+                    <h3 class="idea-title border-left-detail">{{title}}</h3>
+                    <p class="idea-description">{{description}}</p>
+                </div>
+                {{#equals ../userId user.id}}
+                <div class="idea-actions">
+                    <a href="/idea/edit/{{id}}" class="anchor-button">Edit</a>
+                    <form action="/idea/delete/{{id}}" method="POST">
+                        <button type="submit" class="anchor-button">Delete</a>
+                    </form>
+                </div>
+                {{/equals}}
+            </div>
+            <div class="footer-content">
+                <small class="idea-tags">{{tags}}</small>
+                <div class="create-info">
+                    <p class="idea-date">Created at {{#formatDate createdAt}}{{/formatDate}} </p>
+                    <p class="idea-author">By: <span>{{user.name}}</span></p>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+    {{#if empty}}
+        <p class="empty-message">You don't have any ideas, do you want create one ?<a class="anchor-button" href="/idea/create"> click here!</a></p>
+    {{/if}}
+</div>

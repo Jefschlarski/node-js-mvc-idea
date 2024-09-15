@@ -1,0 +1,401 @@
+:root {
+    --primary-color: rgb(232, 0, 0);
+    --primary-hover-color: #ff0000;
+    --default-color: #ebebeb;
+    --default-hover-color: #dedada;
+    --default-border-radius-value: 5px;
+    --default-box-shadow-value: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: 0.5s;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--primary-hover-color);
+}
+
+#logo img {
+    width: 75px;
+}
+
+#logo img:hover {
+    cursor: pointer;
+    scale: 1.1;
+}
+
+/* navbar */
+#nav {
+    background-color: #ffffff;
+    box-shadow: var(--default-box-shadow-value);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+}
+
+#nav ul {
+    display: flex;
+    list-style: none;
+}
+
+#nav ul li {
+    margin: 0 10px;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+/* container */
+.container {
+    min-height: 100vh;
+    padding: 2em;
+}
+
+/* footer */
+.footer {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer span a{
+    color: #ffffff;
+}
+
+.footer span a:hover {
+    color: var(--primary-hover-color);
+}
+
+/* login and register */
+
+.auth-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: var(--default-box-shadow-value);
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-container h2 {
+    text-align: end;
+    margin-bottom: 1em;
+}
+
+.border-right-detail {
+    border-right: 4px solid var(--primary-color);
+    padding: 0.3em;
+}
+
+.border-left-detail {
+    border-left: 4px solid var(--primary-color);
+    padding: 0.3em;
+}
+
+.auth-container form .button-container {
+    display: flex;
+    justify-content: end;
+}
+
+.auth-container .already-link {
+    text-align: end;
+    margin-top: 1em;
+}
+
+/* forms */
+
+.form-control {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control label {
+    margin-bottom: 0.3em;
+    font-weight: bold;
+}
+
+.form-control input,
+.form-control textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--default-border-radius-value);
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* buttons */
+
+.button {
+    color: #000000;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: var(--default-border-radius-value);
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow:var(--default-box-shadow-value);
+}
+
+.button:hover {
+    background-color: var(--default-hover-color);
+    box-shadow:var(--default-box-shadow-value);
+}
+
+.button-submit {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.button-submit:hover {
+    color: #ffffff;
+    background-color: var(--primary-hover-color);
+} 
+
+.anchor-button {
+    font-size: 1em;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: underline;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.anchor-button:hover {
+    color: var(--primary-hover-color);
+    text-decoration: none;
+    border: none;
+    background-color: transparent;
+}
+
+/* flash message */
+
+.flash-message {
+    padding: 10px;
+    position: absolute;
+    right: 10px;
+    top: 110px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: var(--default-border-radius-value);
+    margin-bottom: 1em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+/* Ideas tiles */
+
+.title-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    min-height: 100vh;
+    padding: 1em 5em;
+}
+
+.idea-tile-container {
+    border: 1px solid #ccc;
+    border-radius: var(--default-border-radius-value);
+    background-color: #f9f9f9;
+    box-shadow: var(--default-box-shadow-value);
+    padding: 1rem;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.main-idea-tile-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.idea-tile-container .footer-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.idea-tile-container .create-info {
+    display: flex;
+}
+
+.idea-tile-container .create-info p {
+    margin-left: 0.5em;
+}
+
+.idea-tile-container .create-info span {
+    color: var(--primary-color);
+}
+
+.idea-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0.5em;
+}
+
+.idea-tags {
+    font-style: italic;
+    color: var(--primary-color);
+}   
+
+.idea-info {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+
+.idea-actions form{
+    padding: 0.5em;
+}
+
+.idea-actions a {
+    padding: 0.5em;
+}
+
+.empty-message {
+    margin-top: 1em;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.search-container form .form-control {
+    margin-top: 1rem;
+    margin-right: 1rem;
+    flex: 1;
+}
+
+/* ADMIN */
+/* CHARTS */
+
+.chart-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.chart-container .chart {
+    min-width: 40vw;
+    border: 1px solid #ccc;
+    border-radius: var(--default-border-radius-value);
+    text-align: center;
+    padding: 0.5rem;
+    margin: 2rem 1rem;
+    box-shadow: var(--default-box-shadow-value);
+}
+
+.chart-container .chart canvas {
+    min-height: 150px;
+}
+
+.chart-container .chart .title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0.5em;
+}
+
+/* Estiliza o contêiner da tabela */
+.table-container {
+    margin-top: 1rem;
+    overflow-x: auto; /* Permite rolar horizontalmente se a tabela for muito larga */
+}
+
+/* Estiliza a tabela */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+/* Estiliza os cabeçalhos da tabela */
+.table-header {
+    background-color: var(--primary-color); /* Cor de fundo azul */
+    color: white; /* Texto branco */
+    text-align: left;
+}
+
+/* Estiliza as células dos cabeçalhos */
+.table-header th {
+    padding: 12px 15px;
+    border-bottom: 2px solid var(--primary-color); /* Linha de separação abaixo dos cabeçalhos */
+}
+
+/* Estiliza o corpo da tabela */
+.table-body tr:nth-child(even) {
+    background-color: #f2f2f2; /* Cor de fundo alternada para linhas pares */
+}
+
+.table-body tr:hover {
+    background-color: #ddd; /* Cor de fundo ao passar o mouse sobre a linha */
+}
+
+/* Estiliza as células da tabela */
+.table-body td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd; /* Linha de separação entre as células */
+}
+
+/* Estiliza a tabela em dispositivos móveis */
+@media (max-width: 768px) {
+    .table {
+        display: block;
+        width: 100%;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .table tbody tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .table tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border: none;
+        background-color: #f9f9f9;
+        font-size: 14px;
+    }
+
+    .table tbody td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 10px;
+        color: #333;
+    }
+}

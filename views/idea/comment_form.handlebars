@@ -1,0 +1,55 @@
+<div class="container form-idea-container">
+    <div class="idea-tile-container">
+        <div class="main-idea-tile-content">
+            <div class="idea-info">
+                <h3 class="idea-title border-left-detail">{{idea.title}}</h3>
+                <p class="idea-description">{{idea.description}}</p>
+            </div>
+        </div>
+        <div class="footer-content">
+            <small class="idea-tags">{{idea.tags}}</small>
+            <div class="create-info">
+                <p class="idea-date">Created at {{#formatDate idea.createdAt}}{{/formatDate}} </p>
+            </div>
+        </div>
+    </div>
+    <div class="comments-container">
+        {{#each comments}}
+            <div class="comment-tile-container">
+                <div class="main-comment-tile-content">
+                    <div class="comment-info">
+                        <p class="comment-description">{{description}}</p>
+                    </div>
+                </div>
+                <div class="footer-content">
+                    <div class="create-info">
+                        <p class="comment-date">Created at {{#formatDate createdAt}}{{/formatDate}} </p>
+                    </div>
+                </div>
+            </div>
+            {{#equals ../userId user.id}}
+                <div class="idea-actions">
+                    <a href="/idea/{{../idea.id}}/comment/edit/{{id}}" class="anchor-button">Edit</a>
+                    <form action="/idea/comment/delete/{{id}}" method="POST">
+                        <input type="hidden" name="ideaId" value="{{../idea.id}}">
+                        <button type="submit" class="anchor-button">Delete</a>
+                    </form>
+                </div>
+            {{/equals}}
+        {{/each}}
+    </div>
+    <div class="title-container">
+        <a href="/idea/yours" class="anchor-button">Go back</a>
+        <h2 class="title border-right-detail">{{#if editingComment}}Edit Comment{{else}}Create Comment{{/if}}</h2>
+    </div>
+    <form action="/idea/{{#if editingComment}}comment/edit/{{editingComment.id}}{{else}}comment/create{{/if}}" method="post">
+        <div class="form-control">
+            <label for="description">Describe your comment</label>
+            <textarea name="description" id="description" cols="30" rows="10" placeholder="Enter your description">{{editingComment.description}}</textarea>
+        </div>
+        <input type="hidden" name="ideaId" value="{{idea.id}}">
+        <div class="button-container">
+            <button class="button button-submit" type="submit">{{#if editingComment}}Edit Comment{{else}}Create Comment{{/if}}t</button>
+        </div>
+    </form>
+</div>

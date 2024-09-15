@@ -1,0 +1,14 @@
+<div class="table-container">
+    <table class="table table-striped">
+        <thead class="table-header">
+            <tr>
+                {{#tableHeaders data actions}}
+                {{/tableHeaders}}
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            {{#tableRows data editUrl deleteUrl}}
+            {{/tableRows}}
+        </tbody>
+    </table>
+</div>

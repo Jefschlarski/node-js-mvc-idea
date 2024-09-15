@@ -1,0 +1,30 @@
+<div class="auth-container register-container">
+    <h2 class="auth-title border-right-detail">Register</h2>
+    <form action="/register" method="post">
+        <div class="form-control">
+            <label for="name">Name</label>
+            <input type="text" name="name" placeholder="Enter your name" id="name" value="{{name}}">
+        </div>
+
+        <div class="form-control">
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Enter your email" id="email"  value="{{email}}">
+        </div>
+
+        <div class="form-control">
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter your password" id="password" value="{{password}}">
+        </div>
+
+        <div class="form-control">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" name="confirmPassword" placeholder="Confirm your password" id="confirmPassword" value="{{confirmPassword}}">
+        </div>
+
+        <div class="button-container">
+            <button class="button button-submit" type="submit">Register</button>
+        </div>
+
+        <p class="already-link border-right-detail">Already have an account? <a href="/login">Login here</a></p>
+    </form>
+</div>

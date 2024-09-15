@@ -1,0 +1,11 @@
+<div class="container admin-idea-container">
+    <div class="title-container">
+        <a href="/admin" class="anchor-button">Go back</a>
+        <h2 class="title border-right-detail">User Admin</h2>
+    </div>
+    <h3>User List</h3>
+    <div>
+        {{> renderTable data=usersList actions='true' editUrl='/user/edit' deleteUrl='/user/delete'}}
+    </div>
+</div>
+

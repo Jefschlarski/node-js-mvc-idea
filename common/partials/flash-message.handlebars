@@ -1,0 +1,16 @@
+<div class="flash-message" id="flash-message">
+    <p>{{{message}}}</p>
+</div>
+
+<script>
+    window.onload = function() {
+        const flashMessage = document.getElementById('flash-message');
+        if (flashMessage) {
+            setTimeout(() => {
+                flashMessage.style.transition = 'opacity 1s';
+                flashMessage.style.opacity = '0';
+                setTimeout(() => flashMessage.remove(), 1000); // Remove o elemento após a animação
+            }, 5000); // 5 segundos de exibição
+        }
+    }
+</script>

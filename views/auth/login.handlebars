@@ -1,0 +1,20 @@
+<div class="auth-container login-container">
+    <h2 class="auth-title border-right-detail">Login</h2>
+    <form action="/login" method="post">
+        <div class="form-control">
+            <label for="email">Email</label>
+            <input type="email" name="email" placeholder="Enter your email" id="email"  value="{{email}}">
+        </div>
+
+        <div class="form-control">
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter your password" id="password" value="{{password}}">
+        </div>
+
+        <div class="button-container">
+            <button class="button button-submit" type="submit">Login</button>
+        </div>
+
+        <p class="already-link border-right-detail">Don't have an account? <a href="/register">Register here</a></p>
+    </form>
+</div>

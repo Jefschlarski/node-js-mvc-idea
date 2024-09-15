@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideas</title>
+    <link rel="icon" type="image/png" sizes="16x16"  href="img/favicon-16x16.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <nav id="nav">
+        <a href="/" id="logo">
+            <img src="/img/logo.png" alt="logo">
+        </a>
+
+        <ul>
+            {{#hasPermission session.userType 'admin;root' }}
+                <li><a href="/admin">Admin</a></li>
+            {{/hasPermission}}
+            {{#if session.userId}} 
+                <li><a href="/">Ideas</a></li>
+                <li><a href="/idea/yours">Yours</a></li>
+                <li><a href="/logout">Logout</a></li>
+            {{else}}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            {{/if}}
+        </ul>
+    </nav>
+    <div class="container">
+        {{#if messages.message}}
+            {{> flashMessage message=messages.message}}
+        {{/if}}
+       {{{body}}}
+    </div>
+    <footer class="footer">
+        <p><span><a href="#">Ideas</a></span> &copy; 2024</p>
+    </footer>
+</body>
+</html>

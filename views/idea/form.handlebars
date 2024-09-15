@@ -1,0 +1,23 @@
+<div class="container form-idea-container">
+    <div class="title-container">
+        <a href="/idea/yours" class="anchor-button">Go back</a>
+        <h2 class="title border-right-detail">{{#if idea}}Edit Idea{{else}}Create Idea{{/if}}</h2>
+    </div>
+    <form action="/idea/{{#if idea}}edit/{{idea.id}}{{else}}create{{/if}}" method="post">
+        <div class="form-control">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" placeholder="Enter your title" value="{{idea.title}}">
+        </div>
+        <div class="form-control">
+            <label for="description">Describe your idea</label>
+            <textarea name="description" id="description" cols="30" rows="10" placeholder="Enter your description">{{idea.description}}</textarea>
+        </div>
+        <div class="form-control">
+            <label for="tags">Tags</label>
+            <input type="text" name="tags" id="tags" placeholder="Enter your tags" value="{{idea.tags}}">
+        </div>
+        <div class="button-container">
+            <button class="button button-submit" type="submit">{{#if idea}}Edit Idea{{else}}Create Idea{{/if}}t</button>
+        </div>
+    </form>
+</div>
