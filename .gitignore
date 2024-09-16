@@ -1,6 +1,8 @@
 .env
 sessions/*  
 !sessions/.gitkeep
+config/config.json
+config/config.json
 
 # Logs
 logs
