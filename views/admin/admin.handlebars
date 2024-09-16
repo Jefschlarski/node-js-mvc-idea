@@ -4,8 +4,8 @@
         <h2 class="title border-right-detail">Admin</h2>
     </div>
     <div class="chart-container">
-        {{{renderChart 'columnChart1' labels data 'Collumn Ideas Created per Day'}}} 
-        {{{renderLineChart 'lineChart1' labels data 'Line Ideas Created per Day'}}} 
+        {{{renderChart 'columnChart1' ideaChartData.labels ideaChartData.data 'Ideas Created per Day'}}} 
+        {{{renderLineChart 'lineChart1' userChartData.labels userChartData.data 'New Users per Day'}}} 
     </div>
     <div class="modules">
         <h3>Modules</h3>

@@ -1,0 +1,28 @@
+<div class="idea-tile-container">
+    <div class="main-idea-tile-content">
+        <div class="idea-info">
+            <div class="idea-info-title-container">
+                <h3 class="idea-title border-left-detail">{{idea.title}}</h3>
+                <div class="idea-like-container">
+                    <button type="button" class="anchor-button like-btn" data-id="{{idea.id}}" title="Like this idea">
+                        <i class="bi {{#if liked}}bi-star-fill{{else}}bi-star{{/if}}"></i>
+                    </button>
+                    <span class="like-count" id="like-count-{{idea.id}}">{{idea.likes}}</span> 
+                </div>        
+            </div>
+            <p class="idea-description">{{idea.description}}</p>
+        </div>
+        {{#equals  user.id sessionUserId}}
+            {{> actions moduleName='idea' id=idea.id editUrl='/idea/edit' deleteUrl='/idea/delete'}}
+        {{/equals}}
+    </div>
+    <div class="footer-content">
+        <small class="idea-tags">{{idea.tags}}</small>
+        <div class="create-info">
+            <p class="idea-date">Created at {{#formatDate idea.createdAt}}{{/formatDate}} </p>
+            {{#if user}}
+            <p class="idea-author">By: <span>{{user.name}}</span></p>
+            {{/if}}
+        </div>
+    </div>
+</div>

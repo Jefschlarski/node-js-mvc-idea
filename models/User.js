@@ -1,9 +1,20 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Op } = require('sequelize');
 const conn = require('../db/conn');
 const { UserTypes, getUserTypes } = require('../enums/UserTypes');
+const BaseModel = require('./BaseModel');
 
 //User
-class User extends Model {}
+class User extends BaseModel {
+
+    static getSearchCondition(search){
+        return {
+            [Op.or]: [
+                { name: { [Op.like]: `%${search}%` } },
+                { email: { [Op.like]: `%${search}%` } }
+            ]
+        }
+    }
+}
 
 User.init({
     name: {

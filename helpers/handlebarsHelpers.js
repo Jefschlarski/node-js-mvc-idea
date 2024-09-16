@@ -111,13 +111,18 @@ handlebars.registerHelper('renderChart', function (id, labels, data, title) {
     `);
 });
 
-handlebars.registerPartial('flashMessage', require('../common/partials/flash-message.handlebars'));
+handlebars.registerPartial('ideaTile', require('../partials/idea-tile.handlebars'));
 
-handlebars.registerPartial('renderTable', require('../common/partials/table.handlebars'));
+handlebars.registerPartial('actions', require('../partials/actions.handlebars'));
+
+handlebars.registerPartial('flashMessage', require('../partials/flash-message.handlebars'));
+
+handlebars.registerPartial('renderTable', require('../partials/table.handlebars'));
+
+handlebars.registerPartial('renderPagination', require('../partials/pagination.handlebars'));
 
 handlebars.registerHelper('tableHeaders', function (context, actions) {
     let headers = Object.keys(context[0] || {});
-    console.log(actions);
     if (actions == 'true') {
         headers.push('actions');
     }
@@ -125,9 +130,9 @@ handlebars.registerHelper('tableHeaders', function (context, actions) {
     return result;
 });
 
-// Helper para gerar as linhas da tabela
 handlebars.registerHelper('tableRows', function (context, editUrl, deleteUrl) {
     let result = context.map(item => {
+        let id = item.id;
         let cells = Object.values(item).map(value => {
             if (value instanceof Date) {
                 value = value.toLocaleDateString('pt-BR', {
@@ -140,9 +145,37 @@ handlebars.registerHelper('tableRows', function (context, editUrl, deleteUrl) {
         }).join('');
 
         if (editUrl && deleteUrl) {
-            cells += `<td><a href="${editUrl}/${item.id}">Edit</a> <a href="${deleteUrl}/${item.id}">Delete</a></td>`;
+            cells += `<td>${handlebars.partials.actions({ editUrl, deleteUrl, id })}</td>`;
         }
         return `<tr>${cells}</tr>`;
     }).join('');
     return result;
+});
+
+handlebars.registerHelper('gt', function (a, b) {
+    return a > b;
+});
+
+handlebars.registerHelper('lt', function (a, b) {
+    return a < b;
+});
+
+handlebars.registerHelper('add', function (a, b) {
+    return a + b;
+});
+
+handlebars.registerHelper('subtract', function (a, b) {
+    return a - b;
+});
+
+handlebars.registerHelper('range', function (start, end) {
+    const rangeArray = [];
+    for (let i = start; i <= end; i++) {
+        rangeArray.push(i);
+    }
+    return rangeArray;
+});
+
+handlebars.registerHelper('eq', function (a, b) {
+    return a === b;
 });

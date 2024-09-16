@@ -1,0 +1,17 @@
+<div class="table-pagination">
+    {{#if (gt currentPage 1)}}
+        <a href="{{baseUrl}}?page=1{{#if search}}&search={{search}}{{/if}}" class="page-link">First</a>
+        <a href="{{baseUrl}}?page={{subtract currentPage 1}}{{#if search}}&search={{search}}{{/if}}" class="page-link">Previous</a>
+    {{/if}}
+
+    {{#each (range 1 totalPages) as |pageNum|}}
+        <a href="{{../baseUrl}}?page={{pageNum}}{{#if ../search}}&search={{../search}}{{/if}}" class="page-link {{#if (eq pageNum ../currentPage)}}active{{/if}}">
+            {{pageNum}}
+        </a>
+    {{/each}}
+
+    {{#if (lt currentPage totalPages)}}
+        <a href="{{baseUrl}}?page={{add currentPage 1}}{{#if search}}&search={{search}}{{/if}}" class="page-link">Next</a>
+        <a href="{{baseUrl}}?page={{totalPages}}{{#if search}}&search={{search}}{{/if}}" class="page-link">Last</a>
+    {{/if}}
+</div>

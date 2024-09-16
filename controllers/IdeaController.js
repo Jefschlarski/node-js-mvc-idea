@@ -8,30 +8,33 @@ const { Op } = require('sequelize');
 module.exports = class IdeasController {
     static async showIdeas(req, res) {
         const userId = req.session.userId;
-
         if (!userId) {
             req.flash('message', 'Please, login first!');
             return res.redirect('/login')
         }
+        
+        const currentPage = parseInt(req.query.page) || 1;
 
         let search = req.query.search
         if (!search) {
             search = ''
         }
 
-        const ideas = await Idea.findAll({
-            include: User,
-            where: {
-                [Op.or]: [
-                    { title: { [Op.like]: `%${search}%` } },
-                    { description: { [Op.like]: `%${search}%` } },
-                    { tags: { [Op.like]: `%${search}%` } }
-                ]
-            },
-        })
-        
-        const ideasList = ideas.map((idea) => idea.get({ plain: true }));
-        res.render('idea/home', { ideasList, userId, search });
+        const ideaListWithPagination = await Idea.getListWithPagination(currentPage, search, User);
+
+        const ideasList = ideaListWithPagination.list;
+        const totalPages = ideaListWithPagination.totalPages;
+        const limit = ideaListWithPagination.limit;
+
+        ideasList.forEach(element => {
+            IdeaLike.findOne({ where: { ideaId: element.id, userId: userId } })
+                .then(like => {
+                    if (like) {
+                        element.liked = true
+                    }
+                })
+        });
+        res.render('idea/home', { ideasList, userId, search, currentPage: currentPage, totalPages: totalPages, limit: limit});
     }
 
     static async yours(req, res) {
@@ -50,24 +53,9 @@ module.exports = class IdeasController {
         }
 
         const ideas = user.ideas.map((idea) => idea.dataValues)
-
-        const ideasByDate = {};
-
-        ideas.forEach((idea) => {
-            const date = new Date(idea.createdAt).toLocaleDateString('pt-BR');
-    
-            if (ideasByDate[date]) {
-                ideasByDate[date]++;
-            } else {
-                ideasByDate[date] = 1;
-            }
-        });
-
-        const labels = Object.keys(ideasByDate); 
-        const data = Object.values(ideasByDate);
-
+        const ideasWithLike = await IdeaLike.markLikedByUser(ideas, userId)
         let empty = ideas.length === 0
-        res.render('idea/yours' , { ideas, empty, labels, data })
+        res.render('idea/yours' , { ideas: ideasWithLike, empty})
     }
 
     static async createIdeaView(req, res) {
@@ -165,28 +153,48 @@ module.exports = class IdeasController {
     }
 
     static async likeIdea(req, res) {
-        const id = req.params.id
-        const redirectUrl = req.headers.referer
-        const idea = await Idea.findOne({ where: { id: id }})
-        if (!idea) {
-            req.flash('message', 'Idea not found')
-            res.redirect(redirectUrl)
+        try {
+            const id = req.params.id;
+            const idea = await Idea.findOne({ where: { id: id }});
+    
+            if (!idea) {
+                return res.status(404).json({ success: false, message: 'Idea not found' });
+            }
+    
+            const userId = req.session.userId;
+            const user = await User.findOne({ where: { id: userId }});
+    
+            if (!user) {
+                return res.status(404).json({ success: false, message: 'User not found' });
+            }
+    
+            const ideaLike = await IdeaLike.findOne({ where: { ideaId: id, userId: userId }});
+    
+            let liked = false;
+            let likes = idea.likes;
+            if (!ideaLike) {
+                await IdeaLike.create({ ideaId: id, userId: userId });
+                await idea.increment('likes');
+                likes = idea.likes + 1;
+                liked = true;
+            } else {
+                await ideaLike.destroy();
+                await idea.decrement('likes');
+                likes = idea.likes - 1;
+            }
+    
+            return res.json({
+                success: true,
+                liked: liked,
+                likes: likes,
+                ideaId: id,
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ success: false, message: 'Server error' });
         }
-        const userId = req.session.userId
-        const user = await User.findOne({ where: { id: userId }})
-        if (!user) {
-            req.flash('message', 'User not found')
-            res.redirect(redirectUrl)
-        }
-        const ideaLike = await IdeaLike.findOne({ where: { ideaId: id, userId: userId }})
-
-        if (!ideaLike) {
-            await IdeaLike.create({ ideaId: id, userId: userId })
-        } else {
-            await ideaLike.destroy()
-        }
-        res.redirect(redirectUrl)
     }
+    
 
     static async createCommentView(req, res) {
         const id = req.params.id

@@ -3,8 +3,11 @@ const router = express.Router();
 
 const AdminController = require('../controllers/AdminController');
 
-router.get('/' , AdminController.adminView);
-router.get('/idea' , AdminController.ideasView);
-router.get('/user' , AdminController.usersView);
+const checkAuth = require('../helpers/auth').checkAuth;
+const checkPermission = require('../helpers/auth').checkPermission;
+
+router.get('/' , checkAuth, checkPermission,  AdminController.adminView);
+router.get('/idea' , checkAuth, checkPermission, AdminController.ideasView);
+router.get('/user' , checkAuth, checkPermission, AdminController.usersView);
 
 module.exports = router

@@ -1,6 +1,7 @@
 :root {
     --primary-color: rgb(232, 0, 0);
     --primary-hover-color: #ff0000;
+    --primary-active-hover-color: #b20000;
     --default-color: #ebebeb;
     --default-hover-color: #dedada;
     --default-border-radius-value: 5px;
@@ -253,7 +254,6 @@ a:hover {
 .idea-title {
     font-weight: bold;
     font-size: 1.5rem;
-    margin-bottom: 0.5em;
 }
 
 .idea-tags {
@@ -273,6 +273,27 @@ a:hover {
 
 .idea-actions a {
     padding: 0.5em;
+}
+
+.idea-info-title-container {
+    display: flex;
+    margin-bottom: 0.5em;
+}
+
+.idea-like-container {
+    display: flex;
+    align-items: center;
+}
+
+.idea-like-container i {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 0.2em;
+}
+
+.idea-like-container span {
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 .empty-message {
@@ -360,6 +381,38 @@ a:hover {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd; /* Linha de separação entre as células */
 }
+
+.table-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    text-align: start;
+}
+
+.page-link {
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: var(--primary-hover-color);
+    border: 1px solid var(--primary-hover-color);
+    border-radius: 4px;
+}
+
+.page-link.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.page-link.active:hover {
+    cursor: default;
+    pointer-events: none;
+}
+
+.page-link:hover {
+    background-color: var(--primary-hover-color);
+    color: white;
+}
+
 
 /* Estiliza a tabela em dispositivos móveis */
 @media (max-width: 768px) {

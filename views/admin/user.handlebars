@@ -4,8 +4,16 @@
         <h2 class="title border-right-detail">User Admin</h2>
     </div>
     <h3>User List</h3>
+    <div class="search-container">
+        <form action="/admin/user" method="GET">
+            <div class="form-control">
+                <input type="text" name="search" id="search" placeholder="Search ideas" value="{{search}}">
+            </div>
+            <button class="button button-submit" type="submit">Search</button>
+        </form>
+    </div>
     <div>
-        {{> renderTable data=usersList actions='true' editUrl='/user/edit' deleteUrl='/user/delete'}}
+        {{> renderTable data=usersList actions='true' editUrl='/user/edit' deleteUrl='/user/delete' baseUrl='/admin/user' search=search}}
     </div>
 </div>
 

@@ -4,27 +4,7 @@
         <h2 class="title border-right-detail">Yours</h2>
     </div>
     {{#each ideas}}
-        <div class="idea-tile-container">
-            <div class="main-idea-tile-content">
-                <div class="idea-info">
-                    <h3 class="idea-title border-left-detail">{{title}} <span><form action="/idea/like/{{id}}" method="POST"><button type="submit" class="anchor-button">Like</button></form></span></h3>
-                    <p class="idea-description">{{description}}</p>
-                </div>
-                <div class="idea-actions">
-                    <a href="/idea/edit/{{id}}" class="anchor-button">Edit</a>
-                    <form action="/idea/delete/{{id}}" method="POST">
-                        <button type="submit" class="anchor-button">Delete</a>
-                    </form>
-                    <a class="anchor-button" href="/idea/{{id}}/comment">Comment</a>
-                </div>
-            </div>
-            <div class="footer-content">
-                <small class="idea-tags">{{tags}}</small>
-                <div class="create-info">
-                    <p class="idea-date">Created at {{#formatDate createdAt}}{{/formatDate}} </p>
-                </div>
-            </div>
-        </div>
+        {{> ideaTile idea = this sessionUserId = this.user.id}}
     {{/each}}
     {{#if empty}}
         <p class="empty-message">You don't have any ideas, do you want create one ?<a class="anchor-button" href="/idea/create"> click here!</a></p>

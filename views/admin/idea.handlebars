@@ -4,8 +4,16 @@
         <h2 class="title border-right-detail">Idea Admin</h2>
     </div>
     <h3>Idea List</h3>
+    <div class="search-container">
+        <form action="/admin/idea" method="GET">
+            <div class="form-control">
+                <input type="text" name="search" id="search" placeholder="Search ideas" value="{{search}}">
+            </div>
+            <button class="button button-submit" type="submit">Search</button>
+        </form>
+    </div>
     <div>
-        {{> renderTable data=ideasList actions='true' editUrl='/idea/edit' deleteUrl='/idea/delete'}}
+        {{> renderTable data=ideasList actions='true' editUrl='/idea/edit' deleteUrl='/idea/delete' baseUrl='/admin/idea' search=search}}
     </div>
 </div>
 

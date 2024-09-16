@@ -8,6 +8,8 @@ require ('./helpers/handlebarsHelpers');
 
 const app = express();
 
+app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
+
 const conn = require('./db/conn');
 
 //models 
