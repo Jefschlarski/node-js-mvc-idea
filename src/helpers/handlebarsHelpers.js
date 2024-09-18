@@ -111,6 +111,8 @@ handlebars.registerHelper('renderChart', function (id, labels, data, title) {
     `);
 });
 
+handlebars.registerPartial('adminModuleTile', require('../partials/admin-module-tile.handlebars'));
+
 handlebars.registerPartial('ideaTile', require('../partials/idea-tile.handlebars'));
 
 handlebars.registerPartial('actions', require('../partials/actions.handlebars'));

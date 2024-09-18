@@ -7,15 +7,11 @@
         {{{renderChart 'columnChart1' ideaChartData.labels ideaChartData.data 'Ideas Created per Day'}}} 
         {{{renderLineChart 'lineChart1' userChartData.labels userChartData.data 'New Users per Day'}}} 
     </div>
-    <div class="modules">
+    <div class="modules-container">
         <h3>Modules</h3>
-        <ul>
-            <li>
-                <a href="/admin/idea">Idea</a>
-            </li>
-            <li>
-                <a href="/admin/user">User</a>
-            </li>
-        </ul>
+        <div class="modules">
+            {{> adminModuleTile icon='bi bi-people' title='Users' description='Manage users' url='/admin/user'}}
+            {{> adminModuleTile icon='bi bi-lightbulb' title='Ideas' description='Manage ideas' url='/admin/idea'}}
+        </div>
     </div>
 </div>

@@ -1,0 +1,39 @@
+services:
+  prod:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.prod 
+    container_name: idea-prod
+    ports:
+      - "443:443"
+    environment:
+      NODE_ENV: production
+      SESSION_SECRET: ${SESSION_SECRET}
+    volumes:
+      - ./src:/work/app/src
+      - ./certificates:/work/app/certificates
+      - ./config:/work/app/config
+      - ./seeders:/work/app/seeders
+    depends_on:
+      - redis
+
+  redis:
+    container_name: redis-dev
+    image: "redis:alpine"
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis-data:/data
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_MAX_MEMORY: ${REDIS_MAX_MEMORY}
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}", "--maxmemory", "${REDIS_MAX_MEMORY}", "--maxmemory-policy", "allkeys-lru"]
+    networks:
+      - network
+
+volumes:
+  redis-data:
+
+networks:
+  network:
+    driver: bridge

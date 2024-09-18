@@ -413,6 +413,45 @@ a:hover {
     color: white;
 }
 
+/* Estilos do module */
+
+.modules-container .modules{
+    display: flex;   
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Estilos do module tile */
+
+.module-tile-anchor-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    border-radius: var(--default-border-radius-value);
+    box-shadow: var(--default-box-shadow-value);
+    cursor: pointer;
+}
+
+.module-icon {
+    font-size: 4rem;
+}
+
+.module-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.module-description {
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
 
 /* Estiliza a tabela em dispositivos móveis */
 @media (max-width: 768px) {

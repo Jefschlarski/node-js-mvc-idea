@@ -86,14 +86,16 @@ module.exports = class IdeasController {
         const id = req.params.id
         const idea = await Idea.findOne({ where: { id: id } })
 
+        const previousUrl = req.get('Referer') || '/idea/yours';
+
         if (!idea) {
             req.flash('message', 'Idea not found')
-            res.redirect('/idea/yours')
+            res.redirect(previousUrl)
         }
 
         if (idea.userId != req.session.userId && req.session.userType != 'admin' && req.session.userType != 'root') {
             req.flash('message', 'Unauthorized, you cannot delete this idea!')
-            res.redirect('/idea/yours')
+            res.redirect(previousUrl)
         }
 
         try {
@@ -101,7 +103,7 @@ module.exports = class IdeasController {
             req.flash('message', 'Idea deleted successfully!')
 
             req.session.save(() => {
-                res.redirect('/idea/yours')
+                res.redirect(previousUrl)
             })
         } catch (error) {
             console.log(error)
@@ -111,29 +113,34 @@ module.exports = class IdeasController {
     static async editIdeaView(req, res) {
         const id = req.params.id
         const idea = await Idea.findOne({ where: { id: id }, raw: true })
+
+        const previousUrl = req.get('Referer') || '/idea/yours';
+
         if (!idea) {
-            rqs.flash('message', 'Idea not found')
-            res.redirect('/idea/yours')
+            req.flash('message', 'Idea not found')
+            res.redirect(previousUrl)
         }
 
         if (idea.userId != req.session.userId && req.session.userType != 'admin' && req.session.userType != 'root') {
             req.flash('message', 'Unauthorized, you cannot edit this idea!')
-            res.redirect('/idea/yours')
+            res.redirect(previousUrl)
         }
-        res.render('idea/form', { idea })
+
+        res.render('idea/form', { idea, previousUrl })
     }
 
     static async editIdea(req, res) {
         const id = req.params.id
         const idea = await Idea.findOne({ where: { id: id }})
+        const previousUrl = req.body.previousUrl || '/idea/yours';
         if (!idea) {
             req.flash('message', 'Idea not found')
-            res.redirect('/idea/yours')
+            res.redirect(previousUrl)
         }
 
         if (idea.userId != req.session.userId && req.session.userType != 'admin' && req.session.userType != 'root') {
             req.flash('message', 'Unauthorized, you cannot edit this idea!')
-            res.redirect('/idea/yours')
+            res.redirect(previousUrl)
         }
 
         idea.title = req.body.title
@@ -145,7 +152,7 @@ module.exports = class IdeasController {
             req.flash('message', 'Idea updated successfully!')
 
             req.session.save(() => {
-                res.redirect('/idea/yours')
+                res.redirect(previousUrl)
             })
         } catch (error) {
             console.log(error)

@@ -1,6 +1,6 @@
 .env
-sessions/*  
-!sessions/.gitkeep
+src/sessions/*  
+!src/sessions/.gitkeep
 config/config.json
 config/config.json
 

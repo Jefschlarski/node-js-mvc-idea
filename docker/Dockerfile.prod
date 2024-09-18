@@ -1,0 +1,15 @@
+FROM node:18
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+COPY .env ./.env
+
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 443
+
+CMD ["node", "index.js"]

@@ -1,6 +1,6 @@
 <div class="container form-idea-container">
     <div class="title-container">
-        <a href="/idea/yours" class="anchor-button">Go back</a>
+        <a href="{{previousUrl}}" class="anchor-button">Go back</a>
         <h2 class="title border-right-detail">{{#if idea}}Edit Idea{{else}}Create Idea{{/if}}</h2>
     </div>
     <form action="/idea/{{#if idea}}edit/{{idea.id}}{{else}}create{{/if}}" method="post">
@@ -16,8 +16,9 @@
             <label for="tags">Tags</label>
             <input type="text" name="tags" id="tags" placeholder="Enter your tags" value="{{idea.tags}}">
         </div>
+        <input type="hidden" name="previousUrl" id="previousUrl" value="{{previousUrl}}">
         <div class="button-container">
-            <button class="button button-submit" type="submit">{{#if idea}}Edit Idea{{else}}Create Idea{{/if}}t</button>
+            <button class="button button-submit" type="submit">{{#if idea}}Edit Idea{{else}}Create Idea{{/if}}</button>
         </div>
     </form>
 </div>
