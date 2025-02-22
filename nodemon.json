@@ -1,5 +1,10 @@
 {
-    "watch": ["src", "public"],
-    "ext": "js,json",
-    "ignore": ["node_modules"]
-  }
+  "watch": ["src", "public"],
+  "ext": "js,json,handlebars,css",
+  "ignore": ["node_modules", "dist", "coverage", "logs"],
+  "exec": "node -r dotenv/config",
+  "events": {
+    "restart": "echo 'App restarted due to changes'"
+  },
+  "delay": "1000"
+}

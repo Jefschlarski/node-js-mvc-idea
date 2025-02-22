@@ -2,31 +2,77 @@
   "name": "ideas",
   "version": "1.0.0",
   "description": "ideas",
+  "type": "module",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/index.js localhost 3000",
-    "start": "node ./src/index.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
+    "build": "webpack --mode production",
+    "migrate": "sequelize-cli db:migrate",
+    "migrate:undo": "sequelize-cli db:migrate:undo",
+    "seed": "sequelize-cli db:seed:all",
+    "sequelize": "sequelize",
+    "migrate:create": "sequelize-cli migration:generate --name",
+    "migrate:up": "sequelize-cli db:migrate",
+    "migrate:down": "sequelize-cli db:migrate:undo",
+    "migrate:reset": "sequelize-cli db:migrate:undo:all",
+    "seed:create": "sequelize-cli seed:generate --name",
+    "seed:up": "sequelize-cli db:seed:all",
+    "seed:down": "sequelize-cli db:seed:undo:all"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "bootstrap-icons": "^1.11.3",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "connect-redis": "^7.1.1",
-    "cookie-parser": "^1.4.6",
+    "cookie-parser": "^1.4.7",
     "cookie-session": "^2.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "express-flash": "^0.0.2",
     "express-handlebars": "^8.0.1",
+    "express-rate-limit": "^7.1.5",
     "express-session": "^1.18.0",
+    "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
     "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.2",
-    "nodemon": "^3.1.4",
     "redis": "^4.7.0",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/register": "^7.23.7",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.2",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5",
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^6.3.4",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

@@ -1,32 +1,42 @@
-const { DataTypes, Model } = require('sequelize');
-const conn = require('../db/conn');
+import Sequelize from "sequelize";
+const { DataTypes } = Sequelize;
+import conn from "../db/conn.js";
+import User from "./User.js";
+import Idea from "./Idea.js";
+import BaseModel from "./BaseModel.js";
 
-const User = require('./User');
-const Idea = require('./Idea');
-
-class IdeaComment extends Model {
-    static associate(models) {
-        this.belongsTo(models.Idea);
-        this.belongsTo(models.User);
-    }
+class IdeaComment extends BaseModel {
+  static async getCommentsByIdeaId(ideaId) {
+    const comments = await this.findAll({
+      where: { ideaId: ideaId },
+      include: User,
+      order: [["createdAt", "DESC"]],
+    });
+    return comments.map((comment) => comment.get({ plain: true }));
+  }
 }
 
-IdeaComment.init({
+IdeaComment.init(
+  {
     description: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        require: false,
+      type: DataTypes.TEXT,
+      allowNull: false,
+      require: true,
     },
-}, {
+  },
+  {
     sequelize: conn,
-    modelName: 'idea_comment',
-    primaryKey: false,
-});
-
-IdeaComment.belongsTo(Idea);
-Idea.hasMany(IdeaComment);
+    modelName: "ideaComment",
+  },
+);
 
 IdeaComment.belongsTo(User);
 User.hasMany(IdeaComment);
 
-module.exports = IdeaComment;
+IdeaComment.belongsTo(Idea);
+Idea.hasMany(IdeaComment);
+
+//Descomentar se quiser atualizar a tabela
+// IdeaComment.sync({ alter: true })
+
+export default IdeaComment;

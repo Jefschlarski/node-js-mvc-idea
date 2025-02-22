@@ -1,13 +1,21 @@
-const express = require('express');
+import express from "express";
+import AdminController from "../controllers/AdminController.js";
+import { checkAuth, checkPermission } from "../middleware/auth.js";
+
 const router = express.Router();
 
-const AdminController = require('../controllers/AdminController');
+router.get("/admin", checkAuth, checkPermission, AdminController.adminView);
+router.get(
+  "/admin/idea",
+  checkAuth,
+  checkPermission,
+  AdminController.ideasView,
+);
+router.get(
+  "/admin/user",
+  checkAuth,
+  checkPermission,
+  AdminController.usersView,
+);
 
-const checkAuth = require('../helpers/auth').checkAuth;
-const checkPermission = require('../helpers/auth').checkPermission;
-
-router.get('/' , checkAuth, checkPermission,  AdminController.adminView);
-router.get('/idea' , checkAuth, checkPermission, AdminController.ideasView);
-router.get('/user' , checkAuth, checkPermission, AdminController.usersView);
-
-module.exports = router
+export default router;

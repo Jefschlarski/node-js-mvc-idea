@@ -1,46 +1,61 @@
-const Idea = require('../models/Idea');
-const User = require('../models/User');
-module.exports = class AdminController {
+import Idea from "../models/Idea.js";
+import User from "../models/User.js";
 
-    static async adminView(req, res) {
-        
-        const ideas = await Idea.findAll();
-        const users = await User.findAll();
-        const ideaChartData = await Idea.getChartCreationData(ideas);
-        const userChartData = await User.getChartCreationData(users);
-        res.render('admin/admin', { ideaChartData, userChartData });
-    }
-    static async ideasView(req, res) {
-        let search = req.query.search
-        if (!search) {
-            search = ''
-        }
-        const currentPage = parseInt(req.query.page) || 1;
+class AdminController {
+  static async adminView(req, res) {
+    const ideas = await Idea.findAll();
+    const users = await User.findAll();
+    const ideaChartData = await Idea.getChartCreationData(ideas);
+    const userChartData = await User.getChartCreationData(users);
+    res.render("admin/admin", { ideaChartData, userChartData });
+  }
 
-        const ideaListWithPagination = await Idea.getListWithPagination(currentPage, search);
-        const ideasList = ideaListWithPagination.list;
-        const totalPages = ideaListWithPagination.totalPages;
-        const limit = ideaListWithPagination.limit;
-        res.render('admin/idea', { ideasList , currentPage: currentPage, totalPages: totalPages, limit: limit, search });
-    }
+  static async ideasView(req, res) {
+    let search = req.query.search || "";
+    let page = parseInt(req.query.page) || 1;
 
-    static async usersView(req, res) {
-        let search = req.query.search
-        if (!search) {
-            search = ''
-        }
-        const page = parseInt(req.query.page) || 1;
+    const ideasListWithPagination = await Idea.getListWithPagination(
+      page,
+      search,
+    );
+    const ideas = ideasListWithPagination.list;
+    const totalPages = ideasListWithPagination.totalPages;
+    const limit = ideasListWithPagination.limit;
+    res.render("admin/idea", {
+      ideasList: ideas,
+      currentPage: page,
+      totalPages: totalPages,
+      limit: limit,
+      search,
+    });
+  }
 
-        const usersListWithPagination = await User.getListWithPagination(page, search);
-        const users = usersListWithPagination.list;
+  static async usersView(req, res) {
+    let search = req.query.search || "";
+    let page = parseInt(req.query.page) || 1;
 
-        const userListWithoutPassword = users.map((user) => {
-            delete user.password
-            return user
-        }) 
-        const usersList = userListWithoutPassword
-        const totalPages = usersListWithPagination.totalPages;
-        const limit = usersListWithPagination.limit;
-        res.render('admin/user', { usersList, currentPage: page, totalPages: totalPages, limit: limit, search });
-    }
+    const usersListWithPagination = await User.getListWithPagination(
+      page,
+      search,
+    );
+    const users = usersListWithPagination.list;
+
+    const userListWithoutPassword = users.map((user) => {
+      delete user.password;
+      return user;
+    });
+    const usersList = userListWithoutPassword;
+    const totalPages = usersListWithPagination.totalPages;
+    const limit = usersListWithPagination.limit;
+
+    res.render("admin/user", {
+      usersList,
+      currentPage: page,
+      totalPages: totalPages,
+      limit: limit,
+      search,
+    });
+  }
 }
+
+export default AdminController;

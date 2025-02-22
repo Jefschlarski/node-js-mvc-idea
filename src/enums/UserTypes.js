@@ -1,10 +1,11 @@
-const UserTypes = {
-    USER: 'user',
-    ADMIN: 'admin',
-    ROOT: 'root'
-}
-function getUserTypes() {
-    return Object.values(UserTypes);
+export const UserTypes = {
+  USER: "user",
+  ADMIN: "admin",
+  ROOT: "root",
+};
+
+export function getUserTypes() {
+  return Object.values(UserTypes);
 }
 
-module.exports = { UserTypes, getUserTypes }
+export default UserTypes;
